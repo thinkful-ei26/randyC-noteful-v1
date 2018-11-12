@@ -22,16 +22,27 @@ app.listen(8080, function(){
 
 });
 
-
+//End points
 app.get('/api/notes',(req,res) => {
 
   res.json(data);
 
 });
 
+
 app.get('/api/notes/:id',(req,res) => {
 
-  res.json(data);
+  console.log(typeof req.params.id);
+
+  const noteById = data.find(note => note.id === parseInt(req.params.id));
+
+  console.log(noteById);
+
+  
+  res.json(noteById);
 
 });
+
+
  
+
