@@ -12,7 +12,15 @@ const accessLogging = require('./middleware/logger');
 const express = require('express');
 
 // Load array of notes
+
+//Simple in-memory database
 const data = require('./db/notes');
+
+const simDB = require('./db/simDB');
+
+const notes = simDB.initialize(data);
+
+
 
 const app = express();
 
@@ -34,9 +42,7 @@ app.use(function (err, req, res, next) {
   });
 });
 
-
-
-
+ 
 
 app.listen(PORT, function(){
    

@@ -90,3 +90,30 @@ notes.create(newObj, (err,item) => {
 
 
 });
+
+
+//DELETE note
+
+const thisId = 1005;
+
+
+notes.delete(thisId,(err,item) =>{
+
+  if(err){
+
+    console.error(err);
+
+  }
+  if (item) {
+
+    console.log(item);
+
+  } else {
+
+    console.log('not found');
+
+  }
+
+
+
+});
