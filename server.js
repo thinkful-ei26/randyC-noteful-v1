@@ -4,6 +4,10 @@ console.log('Hello Noteful!');
 
 const { PORT } = require('./config');
 
+const accessLogging = require('./middleware/logger');
+
+
+ 
 // INSERT EXPRESS APP CODE HERE...
 const express = require('express');
 
@@ -14,8 +18,28 @@ const app = express();
 
 // ADD STATIC SERVER HERE
 
-app.listen(PORT, function(){
+app.use(accessLogging);
 
+app.use(function (req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  res.status(404).json({ message: 'Not Found' });
+});
+
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500);
+  res.json({
+    message: err.message,
+    error: err
+  });
+});
+
+
+
+
+
+app.listen(PORT, function(){
+   
   console.info('Server listening on ${this.address().port}');
 
 }).on('error',err => {
@@ -25,6 +49,11 @@ app.listen(PORT, function(){
 });
 
 //End points
+
+//ERROR END POINT
+app.get('/boom', (req, res, next) => {
+  throw new Error('Boom!!');
+});
 
 //Get all notes and Search is a search term...
 app.get('/api/notes',(req,res) => {
