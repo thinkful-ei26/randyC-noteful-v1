@@ -23,14 +23,47 @@ const express = require('express');
 
 
 
-
+// Create an express application
 const app = express();
 
+// Log all requests
+app.use(accessLogging);
+
+// Create a static webserver
 app.use(express.static('public'));//very important
 
-// ADD STATIC SERVER HERE
+// Parse request body
+app.use(express.json());
 
-app.use(accessLogging);
+
+
+app.put('/api/notes/:id', (req, res, next) => {
+  const id = req.params.id;
+
+  /***** Never trust users - validate input *****/
+  const updateObj = {};
+  const updateFields = ['title', 'content'];
+
+  updateFields.forEach(field => {
+    if (field in req.body) {
+      updateObj[field] = req.body[field];
+    }
+  });
+
+  notes.update(id, updateObj, (err, item) => {
+    if (err) {
+      return next(err);
+    }
+    if (item) {
+      res.json(item);
+    } else {
+      next();
+    }
+  });
+});
+
+ 
+
 
 
 //End points
@@ -61,14 +94,10 @@ app.get('/api/notes/:id',(req,res, next) => {
     res.json(list); // responds with filtered array
 
   });
-
-
-  // //gets a note by params id (converted to a number)
-  // const noteById = data.find(note => note.id === parseInt(req.params.id));
  
-  // res.json(noteById);
-
 });
+
+
 
  
 
