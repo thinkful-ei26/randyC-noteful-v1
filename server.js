@@ -2,6 +2,8 @@
 
 console.log('Hello Noteful!');
 
+const { PORT } = require('./config');
+
 // INSERT EXPRESS APP CODE HERE...
 const express = require('express');
 
@@ -12,7 +14,7 @@ const app = express();
 
 // ADD STATIC SERVER HERE
 
-app.listen(8080, function(){
+app.listen(PORT, function(){
 
   console.info('Server listening on ${this.address().port}');
 
