@@ -37,6 +37,46 @@ app.use(express.json());
 
 
 
+
+
+//End points
+
+//Get all notes and Search titles using a search term...
+app.get('/api/notes', (req, res, next) => {
+  const { searchTerm } = req.query;
+
+  notes.filter(searchTerm, (err, list) => {
+    if (err) {
+      return next(err); // goes to error handler
+    }
+    res.json(list); // responds with filtered array
+
+  });
+});
+
+
+
+//Get note by id#
+app.get('/api/notes/:id',(req,res, next) => {
+ 
+  const noteById = req.params.id;
+
+  notes.find(noteById, (err,list) => {
+
+    if (err) {
+      return next(err); // goes to error handler
+    }
+    res.json(list); // responds with filtered array
+
+  });
+ 
+});
+
+
+
+
+
+//PUT updates a note
 app.put('/api/notes/:id', (req, res, next) => {
   const id = req.params.id;
 
@@ -61,46 +101,13 @@ app.put('/api/notes/:id', (req, res, next) => {
     }
   });
 });
+  
 
- 
-
-
-
-//End points
-
-//Get all notes and Search titles using a search term...
-app.get('/api/notes', (req, res, next) => {
-  const { searchTerm } = req.query;
-
-  notes.filter(searchTerm, (err, list) => {
-    if (err) {
-      return next(err); // goes to error handler
-    }
-    res.json(list); // responds with filtered array
-
-  });
-});
-
-//Get note by id#
-app.get('/api/notes/:id',(req,res, next) => {
- 
-  const noteById = req.params.id;
-
-  notes.find(noteById, (err,list) => {
-
-    if (err) {
-      return next(err); // goes to error handler
-    }
-    res.json(list); // responds with filtered array
-
-  });
- 
-});
 
 
 
  
-
+//Error stuff
 
 app.use(function (req, res, next) {
   var err = new Error('Not Found');
