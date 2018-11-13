@@ -26,7 +26,7 @@ const express = require('express');
 
 const app = express();
 
-app.use(express.static('public'));
+app.use(express.static('public'));//very important
 
 // ADD STATIC SERVER HERE
 
@@ -48,13 +48,25 @@ app.get('/api/notes', (req, res, next) => {
   });
 });
 
+//Get note by id#
+app.get('/api/notes/:id',(req,res, next) => {
+ 
+  const noteById = req.params.id;
 
-app.get('/api/notes/:id',(req,res) => {
+  notes.find(noteById, (err,list) => {
+
+    if (err) {
+      return next(err); // goes to error handler
+    }
+    res.json(list); // responds with filtered array
+
+  });
+
+
+  // //gets a note by params id (converted to a number)
+  // const noteById = data.find(note => note.id === parseInt(req.params.id));
  
-  //gets a note by params id (converted to a number)
-  const noteById = data.find(note => note.id === parseInt(req.params.id));
- 
-  res.json(noteById);
+  // res.json(noteById);
 
 });
 
