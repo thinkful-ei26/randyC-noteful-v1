@@ -17,9 +17,7 @@ const notes = simDB.initialize(data);
 //Get all notes and Search titles using a search term...
 router.get('/', (req, res, next) => {
   const { searchTerm } = req.query;
-
-  console.log('hello get 1');
-
+  
   notes.filter(searchTerm, (err, list) => {
     if (err) {
       return next(err); // goes to error handler
@@ -73,6 +71,33 @@ router.put('/:id', (req, res, next) => {
   });
 });
 
+
+// Post (insert) an item
+router.post('/', (req, res, next) => {
+  const { title, content } = req.body;
+
+  const newItem = { title, content };
+  /***** Never trust users - validate input *****/
+  if (!newItem.title) {
+    const err = new Error('Missing `title` in request body');
+    err.status = 400;
+    return next(err);
+  }
+
+  notes.create(newItem, (err, item) => {
+
+    console.log('>>',newItem);
+     
+    if (err) {
+      return next(err);
+    }
+    if (item) {
+      res.location(`http://${req.headers.host}/notes/${item.id}`).status(201).json(item);
+    } else {
+      next();
+    }
+  });
+});
 
 module.exports = router;
 
