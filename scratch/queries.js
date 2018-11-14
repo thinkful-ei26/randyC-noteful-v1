@@ -96,7 +96,6 @@ notes.create(newObj, (err,item) => {
 
 const thisId = 1005;
 
-
 notes.delete(thisId,(err,item) =>{
 
   if(err){

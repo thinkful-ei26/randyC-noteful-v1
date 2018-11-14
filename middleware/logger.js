@@ -13,18 +13,3 @@ function requestLogger(req,res,next){
 
 module.exports = requestLogger;
 
-
-/*
-
-  module.exports = thing;
-
-  const thing = require("...")
-
-
-
-  module.exports = {thing}
-
-  const {thing} = require("...")
- 
-
-*/

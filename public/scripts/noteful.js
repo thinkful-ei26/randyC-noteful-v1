@@ -96,6 +96,7 @@ const noteful = (function () {
     });
   }
 
+  
   function handleNoteDeleteClick() {
     $('.js-notes-list').on('click', '.js-note-delete-button', event => {
       event.preventDefault();
@@ -105,6 +106,7 @@ const noteful = (function () {
     });
   }
 
+
   function bindEventListeners() {
     handleNoteItemClick();
     handleNoteSearchSubmit();
@@ -113,7 +115,7 @@ const noteful = (function () {
     handleNoteDeleteClick();
   }
 
-  // This object contains the only exposed methods from this module:
+  // This object contains the only exposed methods from this module: 
   return {
     render: render,
     bindEventListeners: bindEventListeners,

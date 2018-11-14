@@ -71,10 +71,7 @@ app.get('/api/notes/:id',(req,res, next) => {
   });
  
 });
-
-
-
-
+ 
 
 //PUT updates a note
 app.put('/api/notes/:id', (req, res, next) => {
@@ -101,11 +98,7 @@ app.put('/api/notes/:id', (req, res, next) => {
     }
   });
 });
-  
-
-
-
-
+   
  
 //Error stuff
 
