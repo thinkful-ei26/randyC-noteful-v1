@@ -1,9 +1,7 @@
 'use strict';
 
 console.log('Hello Noteful!');
-
-
-
+ 
 const { PORT } = require('./config');
 
 //onst accessLogging = require('./middleware/logger');
@@ -35,6 +33,7 @@ app.use(express.json());
 
 // Routes
 app.use('/api/notes/',notesRouter);
+ 
   
  
 //Error stuff

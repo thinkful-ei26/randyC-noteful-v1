@@ -1,3 +1,4 @@
+
 /* global $ */
 'use strict';
 
@@ -13,7 +14,6 @@ const api = {
     });
   },
 
-
   details: function (id, callback) {
     $.ajax({
       type: 'GET',
@@ -23,8 +23,7 @@ const api = {
     });
   },
 
-
-  update: function(id, obj, callback) {
+  update: function (id, obj, callback) {
     $.ajax({
       type: 'PUT',
       url: `/api/notes/${id}`,
@@ -33,7 +32,27 @@ const api = {
       data: JSON.stringify(obj),
       success: callback
     });
-  }
+  },
 
+  create: function (obj, callback) {
+    $.ajax({
+      type: 'POST',
+      url: '/api/notes',
+      contentType: 'application/json',
+      dataType: 'json',
+      processData: false,
+      data: JSON.stringify(obj),
+      success: callback
+    });
+  },
+
+  remove: function (id, callback) {
+    return $.ajax({
+      type: 'DELETE',
+      url: `/api/notes/${id}`,
+      dataType: 'json',
+      success: callback
+    });
+  }
 
 };
